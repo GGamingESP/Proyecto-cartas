@@ -161,17 +161,37 @@ function checkCurrentCard() {
         let imagen2 = carta2.querySelector("img");
         imagen1.src = arrayCartas[currentCard.card1].image
         imagen2.src = arrayCartas[currentCard.card2].image
-        carta1.classList.add("upside");
         carta1.classList.remove("downside");
         carta2.classList.add("upside");
-        carta2.classList.remove("downside") ;
         gameData.numPairResolved += 1 ;
+        counterAciertos.innerText = gameData.numPairResolved ;
         arrayCartas[currentCard.card1].state = "resolved";
         arrayCartas[currentCard.card2].state = "resolved";
-        carta1.removeEventListener(checkCard);
-        carta2.removeEventListener(checkCard);
+        carta1.removeEventListener("click",checkCard);
+        carta2.removeEventListener("click",checkCard);
+        currentCard.card1 = null ;
+        currentCard.card2 = null ;
     }else {
-        
+        // falta funcionalidad para que cuando las 2 cartas son incorrectas 
+        let carta1 = document.getElementById(currentCard.card1);
+        let carta2 = document.getElementById(currentCard.card2) ;
+        let imagen1 = carta1.querySelector("img");
+        let imagen2 = carta2.querySelector("img");
+        gameData.numTotalTries += 1;
+        counterFallos.innerText = gameData.numTotalTries ;
+        arrayCartas[currentCard.card1].state = "downside";
+        arrayCartas[currentCard.card2].state = "downside";
+        setTimeout(() => {
+            console.log("dando vuelta")
+            imagen1.src = "./img/backside.png";
+            imagen2.src = "./img/backside.png";
+            carta1.classList.remove("upside");
+            carta1.classList.add("downside");
+            carta2.classList.remove("upside");
+            carta2.classList.add("downside") ;
+        }, "800");
+        currentCard.card1 = null ;
+        currentCard.card2 = null ;
     }
 }
 
