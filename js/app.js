@@ -4,7 +4,7 @@ let counterFallos = document.getElementById("fallos") ;
 let counterClicks = document.getElementById("clicks") ;
 
 let tablero = document.getElementById("card-tablero") ;
-
+let container = document.getElementById("container")
 // Arrays
 
 // formato de cada objeto en el array de arrayCartas y array
@@ -138,7 +138,7 @@ function checkCard(e) {
                     arrayCartas[currentCard.card2].state = "upside";
                 }, "300");
                 setTimeout(() => {
-                    checkCard();
+                    checkCurrentCard();
                 }, "1500")
             }
         }else if(currentCard.card1 == null && currentCard.card2 != null){
@@ -154,7 +154,7 @@ function checkCard(e) {
                     arrayCartas[currentCard.card1].state = "upside";
                 }, "300");
                 setTimeout(() => {
-                    checkCard();
+                    checkCurrentCard();
                 }, "2000")
             }
         }
@@ -235,3 +235,35 @@ function StartGame() {
 window.addEventListener("DOMContentLoaded", () => {
     StartGame();
 })
+
+
+
+// no funcional pero es para que cuando termines y ganes tengas la opcion de iniciar el juego
+
+// function deleteWinner() {
+//     let winner = document.querySelector("winner")
+//     winner.remove();
+//     StartGame();
+// }
+
+// window.addEventListener("click", () => {
+//     if(gameData.numPairResolved == 7) {
+//         setTimeout(() => {
+//             let winner = document.createElement("div");
+//             winner.classList.add("winner");
+//             let winnerText = document.createElement("h2");
+//             winnerText.innerText = "Felicidades por ganar";
+//             let winnerButton = document.createElement("button");
+//             winnerButton.addEventListener("click", deleteWinner);
+//             winnerButton.innerText = "Pulsa para jugar de nuevo"
+//             winner.appendChild(winnerText);
+//             winner.appendChild(winnerButton);
+//             container.appendChild(winner);
+//         }, "5000")
+//         let confett = new confetti('winButton');
+//         confett.setCount(75);
+//         confett.setSize(1);
+//         confett.setPower(25);
+//         confett.setFade(false);
+//     }
+//     })
