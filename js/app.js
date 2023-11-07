@@ -189,7 +189,7 @@ function checkCurrentCard() {
             carta1.classList.add("downside");
             carta2.classList.remove("upside");
             carta2.classList.add("downside") ;
-        }, "800");
+        }, "700");
         currentCard.card1 = null ;
         currentCard.card2 = null ;
     }
