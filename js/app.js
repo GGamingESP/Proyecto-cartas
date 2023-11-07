@@ -1,6 +1,7 @@
 // DOM
 let counterAciertos = document.getElementById("aciertos");
 let counterFallos = document.getElementById("fallos") ;
+let counterClicks = document.getElementById("clicks") ;
 
 let tablero = document.getElementById("card-tablero") ;
 
@@ -105,7 +106,8 @@ let gameData = {
     state: "start", // los valores que puede tener "start" que es antes de iniciar , "started" que es cuando se esta jugando a el juego y "end" cuando el juego se a terminado
     numPairResolved: 0 ,
     numPairUp: 0 ,
-    numTotalTries : 0 
+    numTotalTries : 0 ,
+    numTotalClicks : 0 
 }
 
 // funcion para randomizar el array e insertarlo en el array arrayCartas
@@ -115,41 +117,56 @@ function createCards() {
 
 // mira el id que es la posicion de la carta en el array arrayCartas y comprueba los datos, de esta manera el usuario sola sabe el id todo son diferentes
 function checkCard(e) {
-    // if(currentCard.card1 == null && currentCard.card2 == null){
-    //     currentCard.card1 == e.id
-    // }else if(currentCard.card1 != null){
-        
-    // }else if(currentCard.car)
+    gameData.numTotalClicks += 1;
+    counterClicks.innerText = gameData.numTotalClicks ;
     let card = document.getElementById(e)
     console.log(e)
     if(currentCard.card1 != null && currentCard.card2 != null){
-        // aqui hacer que las todas las cartas se den la vuelta
+        // este if es solo por si acaso
         checkCurrentCard();
     }else if(currentCard.card1 != null || currentCard.card2 != null){
         if(currentCard.card1 != null && currentCard.card2 == null){
             currentCard.card2 = e
-            card.classList.add("upside");
-            setTimeout(() => {
-                let image = card.querySelector("img");
-                image.src = arrayCartas[currentCard.card2].image
-                arrayCartas[currentCard.card2].state = "upside";
-            }, "300");
+            if(currentCard.card1 == currentCard.card2){
+                currentCard.card2 = null ;
+            }else{
+                card.classList.add("upside");
+                card.classList.remove("downside");
+                setTimeout(() => {
+                    let image = card.querySelector("img");
+                    image.src = arrayCartas[currentCard.card2].image
+                    arrayCartas[currentCard.card2].state = "upside";
+                }, "300");
+                setTimeout(() => {
+                    checkCard();
+                }, "1500")
+            }
         }else if(currentCard.card1 == null && currentCard.card2 != null){
             currentCard.card1 = e
-            card.classList.add("upside");
-            setTimeout(() => {
-                let image = card.querySelector("img");
-                image.src = arrayCartas[currentCard.card1].image
-                arrayCartas[currentCard.card1].state = "upside";
-            }, "300");
-            
+            if(currentCard.card1 == currentCard.card2){
+                currentCard.card1 = null;
+            }else{
+                card.classList.add("upside");
+                card.classList.remove("downside");
+                setTimeout(() => {
+                    let image = card.querySelector("img");
+                    image.src = arrayCartas[currentCard.card1].image
+                    arrayCartas[currentCard.card1].state = "upside";
+                }, "300");
+                setTimeout(() => {
+                    checkCard();
+                }, "1500")
+            }
         }
     }else if(currentCard.card1 == null && currentCard.card2 == null){
         currentCard.card1 = e;
         let image = card.querySelector("img");
-        image.src = arrayCartas[currentCard.card1].image
-        arrayCartas[currentCard.card1].state = "upside";
         card.classList.add("upside");
+        setTimeout(() => {
+            image.src = arrayCartas[currentCard.card1].image
+            arrayCartas[currentCard.card1].state = "upside";
+        },"300")
+        
     }
 }
 
@@ -197,7 +214,7 @@ function checkCurrentCard() {
 
 function drawCards() {
     // funcion que crea la carta y la inserta en el html, el id es el contador que a su vez es igual que la posicion en el array arrayCartas
-    for(let i = 0 ; i <= arrayCartas.length ; i++){
+    for(let i = 0 ; i < arrayCartas.length ; i++){
         let newHTML = `<img class="card-image" src="./img/backside.png" alt="imagen" ></img>` ;
         let card = document.createElement("div");
         card.id = i ;

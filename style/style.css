@@ -3,6 +3,11 @@
     src: url(../fonts/Geist/Geist-Black.otf);
 }
 
+@font-face {
+    font-family: Geist Bold;
+    src: url(../fonts/Geist/Geist-Bold.otf);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -100,6 +105,37 @@ body {
     /* clase que se le pondra cuando se gire hacia el lado sin imagen */
     transition: all 0.2s;
     animation: unflip 0.8s ease-in-out;
+}
+
+#info {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    padding: 0.5em;
+}
+
+#info-button {
+    background-color: black;
+    color: white;
+    font-family: Geist Bold;
+    padding: 1em;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+#info-button:hover {
+    scale: 1.1;
+    transition: all 0.2s;
+}
+
+#info-button:not(:hover){
+    scale: 1.0;
+    transition: all 0.2s;
+}
+
+#info-desp {
+    display: none;
 }
 
 @keyframes flip {
