@@ -155,7 +155,7 @@ function checkCard(e) {
                 }, "300");
                 setTimeout(() => {
                     checkCard();
-                }, "1500")
+                }, "2000")
             }
         }
     }else if(currentCard.card1 == null && currentCard.card2 == null){
@@ -199,14 +199,15 @@ function checkCurrentCard() {
         arrayCartas[currentCard.card1].state = "downside";
         arrayCartas[currentCard.card2].state = "downside";
         setTimeout(() => {
-            console.log("dando vuelta")
-            imagen1.src = "./img/backside.png";
-            imagen2.src = "./img/backside.png";
             carta1.classList.remove("upside");
             carta1.classList.add("downside");
             carta2.classList.remove("upside");
             carta2.classList.add("downside") ;
-        }, "700");
+            console.log("dando vuelta")
+            imagen1.src = "./img/backside.png";
+            imagen2.src = "./img/backside.png";
+            
+        }, "1000");
         currentCard.card1 = null ;
         currentCard.card2 = null ;
     }
